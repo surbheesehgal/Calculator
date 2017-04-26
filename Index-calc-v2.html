@@ -1,0 +1,284 @@
+<!doctype html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="style_calc.css"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<title> My First Calculator </title>
+</head>
+
+<body>
+<!--div>
+	<form name="frm_theme">
+		
+		<input 	type="button" 
+				class="button_theme"
+				id="theme_1" 
+				value="style1"
+				OnClick="change_style(document.getElementById('theme_1').value)">
+		<br>
+		<input 	type="button" 
+				class="button_theme"
+				id="theme_2" 
+				value="style2"
+				OnClick="change_style(document.getElementById('theme_2').value)">
+</div-->
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="#" OnClick="change_style('style1')">Theme1</a>
+  <a href="#" OnClick="change_style('style2')">Theme2</a>
+</div> 
+
+<span onclick="openNav()">&#9776; Menu</span>
+<!--div class="hamburger-icon">
+    <span>Theme1;</span>
+    <span>Theme2;</span>
+    <span>&nbsp;</span>
+</div-->
+
+<div>
+	<form name="frm_calculate" onkeypress="display_value(event.which)">
+		
+		<input 	type="text" 
+				class="text_calc"
+				id="display_text" 
+				wrap="on" 
+				readonly 
+				autofocus>
+		<br>
+		<input 	type="button" 
+				class="button_calc" 
+				value="7" 
+				id="b_7"
+				OnClick="speak_text()">
+				
+		<input 	type="button"
+				class="button_calc" 
+				value="8" 
+			 	id="b_8" 
+				OnClick="display_value(document.getElementById('b_8').value)"> 
+		<input 	type="button" 
+				class="button_calc" 
+				value="9" 
+				id="b_9"
+				OnClick="display_value(document.getElementById('b_9').value)"> 
+		<input 	type="button" 
+				class="button_calc" 
+				value="x" 
+				id="b_x"
+				OnClick="calculate_value('x',document.getElementById('display_text').value)">
+		<br>
+		<input 	type="button" 
+				class="button_calc" 
+				value="4" 
+				id="b_4" 
+				OnClick="display_value(document.getElementById('b_4').value)">
+		<input 	type="button" 
+				class="button_calc" 
+				value="5" 
+				id="b_5" 
+				OnClick="display_value(document.getElementById('b_5').value)"> 
+		<input 	type="button" 
+				class="button_calc" 
+				value="6" 
+				id="b_6" 
+				OnClick="display_value(document.getElementById('b_6').value)"> 
+		<input 	type="button" 
+				class="button_calc" 
+				value="+" 
+				id="b_a" 
+				OnClick="calculate_value('a',document.getElementById('display_text').value)">
+		<br>
+		<input 	type="button" 
+				class="button_calc" 
+				value="1" 
+				id="b_1" 
+				OnClick="display_value(document.getElementById('b_1').value)"> 
+		<input 	type="button" 
+				class="button_calc" 
+				value="2" 
+				id="b_2" 
+				OnClick="display_value(document.getElementById('b_2').value)"> 
+		<input 	type="button" 
+				class="button_calc" 
+				value="3" 
+				id="b_3" 
+				OnClick="display_value(document.getElementById('b_3').value)"> 
+		<input 	type="button" 
+				class="button_calc" 
+				value="-" 
+				id="b_s" 
+				OnClick="calculate_value('s',document.getElementById('display_text').value)">
+		<br>
+		<input 	type="reset" 
+				class="button_calc" 
+				value="C" 
+				id="b_c" 
+				OnClick="reset_value()"> 
+		<input 	type="button" 
+				class="button_calc" 
+				value="0" 
+				id="b_0" 
+				OnClick="display_value(document.getElementById('b_0').value)">
+		<input 	type="button" 
+				class="button_calc" 
+				value="=" 
+				id="b_e" 
+				OnClick="calculate_value('e',document.getElementById('display_text').value)"> 
+		<input 	type="button" 
+				class="button_calc" 
+				value="/" 
+				id="b_d" 
+				OnClick="calculate_value('d',document.getElementById('display_text').value)"> 	
+	</form>
+</div>
+
+<script type="text/javascript">
+
+/*
+var file = location.pathname.split( "/" ).pop();
+
+var link = document.createElement( "link" );
+link.href = file.substr( 0, file.lastIndexOf( "." ) ) + ".css";
+link.type = "text/css";
+link.rel = "stylesheet";
+link.media = "screen,print"; */
+
+var oper = "";
+var res_num = 0;
+var oper_num = 0;
+var oper_ip = "";
+var last_input = "";
+
+function openNav() {
+    document.getElementById("mySidenav").style.width = "100px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+
+function change_style (theme) {
+	var link = document.createElement( "link" );
+	if (theme == "style2") {
+		sheetname = "style_calc1";
+	}
+	else
+	{
+		sheetname = "style_calc";
+	}
+	link.href = sheetname + ".css";
+	link.type = "text/css";
+	link.rel = "stylesheet";
+	link.media = "screen,print";
+	document.getElementsByTagName( "head" )[0].appendChild( link );
+}
+
+	function reset_value() 
+	{
+	 	oper = "";
+		res_num = 0;
+		oper_num = 0;
+	}
+	
+	function calcKeyCode(event)
+	{
+		var calc_key = event.which || event.keyCode;
+		display_value(calc_key);
+	}
+
+ 	function display_value(y)
+ 	{ 
+ 	    var out1 = document.getElementById("display_text");
+ 	    var x = out1.value;
+ 	    if ((x == '0')  || (oper_ip != "")) {
+ 	    	out1.value = y;
+ 	    	oper_ip = "";
+ 	    }
+ 	    else
+ 	    	out1.value = x + y;
+ 	    
+ 	    last_input="operand";
+ 	}
+ 	
+ function calculate_value(x,y)
+ {
+ 		oper_ip = "y";
+ 		
+ 	if (last_input != "operator") {
+ 		// when operator is clicked first time 
+ 		if ((res_num == 0) && (oper == "") && (oper_num == 0)) {
+			oper = x;
+ 			res_num = parseInt(y);
+ 			//oper_ip = y;
+		}
+ 		else {
+			oper_num = parseInt(y);
+ 				
+ 			if (oper == 'a') { 
+ 				res_num = add_value(res_num,oper_num); 
+ 			}
+ 			if (oper == 's') {
+ 				res_num = sub_value(res_num,oper_num);
+ 			}
+ 			if (oper == 'x') {
+ 				res_num = mul_value(res_num,oper_num);
+ 			}
+ 			if (oper == 'd') {
+ 				res_num = div_value(res_num,oper_num);
+ 			}
+ 				
+ 			var out1 = document.getElementById("display_text");
+ 			out1.value = res_num;
+ 			oper = x;
+ 					
+ 			if (oper == 'e') {
+ 				reset_value();
+ 			}
+ 		}
+ 		last_input="operator";
+ 	}	
+ }	
+ 	function add_value(x,y)
+ 	{
+ 		var sum = x + y;
+ 		return sum;
+ 	}
+ 	
+ 	function sub_value(x,y)
+ 	{
+ 		var diff = x - y;
+ 		return diff;
+ 	}
+ 	
+ 	function mul_value(x,y)
+ 	{
+ 		var mul = x * y;
+ 		return mul;
+ 	}
+ 	
+ 	function div_value(x,y)
+ 	{
+ 		var div = x / y;
+ 		return div;
+ 	}
+ 	
+ // say a message
+ function speak_text() {
+ 
+   if (!('speechSynthesis' in window)) return;
+ var utterance = new SpeechSynthesisUtterance('Hello Treehouse');
+	window.speechSynthesis.speak(utterance);
+}
+ 	
+ 	
+
+</script>
+
+
+</body>
+
+</html>
