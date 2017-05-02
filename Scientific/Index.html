@@ -1,0 +1,215 @@
+<!doctype html>
+
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="style_calc2.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<title> My First Scientific Calculator </title>
+</head>
+
+<body>
+
+<div>
+	<form name="frm_calculate">
+		
+		<input 	type="text" 
+				class="text_calc"
+				id="display_text" 
+				wrap="on" 
+				readonly 
+				autofocus>
+		<br>
+		
+		<input 	type="text" 
+				class="text_calc"
+				id="display_res" 
+				wrap="on" 
+				readonly 
+				autofocus>
+		<br>
+		
+		<input 	type="button" 
+				class="button_calc" 
+				value="7" 
+				id="b_7"
+				OnClick="display_value(document.getElementById('b_7').value)">
+				
+		<input 	type="button"
+				class="button_calc" 
+				value="8" 
+			 	id="b_8" 
+				OnClick="display_value(document.getElementById('b_8').value)"> 
+				
+		<input 	type="button" 
+				class="button_calc" 
+				value="9" 
+				id="b_9"
+				OnClick="display_value(document.getElementById('b_9').value)"> 
+				
+		<input 	type="button" 
+				class="button_calc" 
+				value="X" 
+				id="b_x"
+				OnClick="display_value('*')">
+		<br>
+		<input 	type="button" 
+				class="button_calc" 
+				value="4" 
+				id="b_4" 
+				OnClick="display_value(document.getElementById('b_4').value)">
+		<input 	type="button" 
+				class="button_calc" 
+				value="5" 
+				id="b_5" 
+				OnClick="display_value(document.getElementById('b_5').value)"> 
+		<input 	type="button" 
+				class="button_calc" 
+				value="6" 
+				id="b_6" 
+				OnClick="display_value(document.getElementById('b_6').value)"> 
+		<input 	type="button" 
+				class="button_calc" 
+				value="+" 
+				id="b_a" 
+				OnClick="display_value(document.getElementById('b_a').value)">
+		<br>
+		<input 	type="button" 
+				class="button_calc" 
+				value="1" 
+				id="b_1" 
+				OnClick="display_value(document.getElementById('b_1').value)"> 
+		<input 	type="button" 
+				class="button_calc" 
+				value="2" 
+				id="b_2" 
+				OnClick="display_value(document.getElementById('b_2').value)"> 
+		<input 	type="button" 
+				class="button_calc" 
+				value="3" 
+				id="b_3" 
+				OnClick="display_value(document.getElementById('b_3').value)"> 
+		<input 	type="button" 
+				class="button_calc" 
+				value="-" 
+				id="b_s" 
+				OnClick="display_value(document.getElementById('b_s').value)">
+		<input 	type="button" 
+				class="button_calc" 
+				value="(" 
+				id="b_(" 
+				OnClick="display_value(document.getElementById('b_(').value)">
+		<input 	type="button" 
+				class="button_calc" 
+				value=")" 
+				id="b_)" 
+				OnClick="display_value(document.getElementById('b_)').value)">
+		<br>
+		<input 	type="reset" 
+				class="button_calc" 
+				value="C" 
+				id="b_c" 
+				OnClick="reset_value()"> 
+		<input 	type="button" 
+				class="button_calc" 
+				value="0" 
+				id="b_0" 
+				OnClick="display_value(document.getElementById('b_0').value)">
+		<input 	type="button" 
+				class="button_calc" 
+				value="." 
+				id="b_pt" 
+				OnClick="display_value(document.getElementById('b_pt').value)">
+		<input 	type="button" 
+				class="button_calc"
+				value="<-" 
+				id="b_del" 
+				OnClick="del_value()">
+		<input 	type="button" 
+				class="button_calc" 
+				value="=" 
+				id="b_e" 
+				OnClick="display_result()"> 
+		<input 	type="button" 
+				class="button_calc" 
+				value="/" 
+				id="b_d" 
+				OnClick="display_value(document.getElementById('b_d').value)"> 	
+	</form>
+</div>
+
+<script type="text/javascript">
+
+var operators = ['+','-','*','/'];
+var op_length = operators.length;
+var op_present = '';
+
+ 	function display_value(y)
+ 	{ 
+ 	    var out1 = document.getElementById("display_text");
+ 	    var x = out1.value;
+ 	    op_present = '';
+ 	    check_last_char(x,y);
+ 	    
+ 	    /*If y is (+,-,*,/) and last character in the text box is also an operator
+ 	     don't add it in the display_text box 
+ 	     
+ 	     check the below snippet in Safari 7
+ 	    var Index_op = operators.findIndex(check_last_char);
+ 	    if (operators.findIndex(last_char) != -1) {*/ 
+ 	   
+ 	   if (op_present != 'y') {
+ 	    	out1.value = x + y;
+ 	  	}	
+ 	}
+ 	
+ 	function check_last_char(str,new_char)
+ 	{
+ 	    var last_char = str.charAt(str.length-1);
+ 	    
+ 	    for (i=0; i< op_length; i++)
+ 	  	{ 
+ 	        if ((operators[i] == last_char) || (last_char == '')) {
+ 	        	for (i=0; i< op_length; i++) {
+ 	        		 if (operators[i] == new_char) {
+ 	        		 	op_present = 'y';
+ 	        	 		return;
+ 	        		}
+ 	        	 }
+ 	  	 	}
+ 		}
+ 	}
+ 	
+ 	function display_result()
+ 	{ 
+ 	    var out1 = document.getElementById("display_text");
+ 	    var x = out1.value;
+ 	    if (x!='') {
+ 	    	var y = eval(x);
+ 	    	var out2 = document.getElementById("display_res");
+ 	    	out2.value = y;
+ 	    }
+ 	    else
+ 	    {
+ 	    	var out2 = document.getElementById("display_res");
+ 	    	out2.value = '';
+ 	    }
+ 	}
+ 	
+ 	function del_value()
+ 	{
+ 		var out1 = document.getElementById("display_text");
+ 	    var x = out1.value;
+ 	    out1.value = x.slice(0,(length-1));
+ 	    if (out1.value =='')
+ 	    {
+ 	    	var out2 = document.getElementById("display_res");
+ 	    	out2.value = '';
+ 	    }
+	}
+</script>
+
+</body>
+
+</html>
