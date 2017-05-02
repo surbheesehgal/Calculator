@@ -1,0 +1,39 @@
+ div {border: 2px solid blue;
+       width:30%;
+       height:250%;
+       background-color: black;	
+       padding-left: 15px;
+       margin: 5px;
+       border-radius:4px;
+       }
+        
+ .text_calc {
+ 				float:center; 
+ 				text-align:right; 
+ 				border:2px solid blue; 
+ 				font-size: 12px;
+ 				width:95%; 
+ 				box-sizing:border-box; 
+ 				border-radius:4px;
+ 				padding: 5px 8px;
+ 				margin: 2px 4px;
+ 				background: white;
+ 			}
+       
+ .button_calc 	{	
+ 					box-sizing:border-box; 
+ 					border-radius:4px;
+ 					padding: 5px 8px;
+ 					display:inline-block;
+    				text-align: center;
+    				text-decoration: none;
+    				font-size: 12px;
+    				margin: 4px 2px;
+    				cursor: pointer;
+    				background: -webkit-linear-gradient(green, yellow); 
+ 				}
+       
+    
+       
+
+  
